@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cycle Tracker</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="manifest" href="manifest.json"/>
+  <meta name="theme-color" content="#e05a7a"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+  <meta name="apple-mobile-web-app-title" content="Cycle"/>
+  <link rel="apple-touch-icon" href="icon-192.png"/>
+</head>
+<body>
+  <div id="app">
+    <div id="view-calendar" class="view active">
+      <div class="top-bar">
+        <span class="top-title">Calendar</span>
+        <span class="drop-icon">🩸</span>
+      </div>
+      <div id="calendar-container"></div>
+      <div id="legend">
+        <div class="legend-title">Period days</div>
+        <div class="legend-items">
+          <div class="legend-item"><span class="dot light"></span> Light</div>
+          <div class="legend-item"><span class="dot medium"></span> Medium</div>
+          <div class="legend-item"><span class="dot heavy"></span> Heavy</div>
+          <div class="legend-item"><span class="dot predicted"></span> Predicted</div>
+          <div class="legend-item"><span class="dot fertile"></span> Fertile</div>
+          <div class="legend-item"><span class="dot ovulation"></span> Ovulation</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="view-track" class="view">
+      <div class="top-bar"><span class="top-title">Log Period</span></div>
+      <div class="card">
+        <label>Period start</label>
+        <input type="date" id="start-date"/>
+        <label>Period end</label>
+        <input type="date" id="end-date"/>
+        <label>Flow intensity</label>
+        <div class="flow-picker">
+          <button class="flow-btn" data-flow="light">Light</button>
+          <button class="flow-btn" data-flow="medium">Medium</button>
+          <button class="flow-btn" data-flow="heavy">Heavy</button>
+          <button class="flow-btn" data-flow="super">Super heavy</button>
+        </div>
+        <button id="save-btn">Save Cycle</button>
+      </div>
+      <div class="card" id="history-card">
+        <div class="card-title">History</div>
+        <ul id="cycle-list"></ul>
+      </div>
+    </div>
+
+    <div id="view-analysis" class="view">
+      <div class="top-bar"><span class="top-title">Analysis</span></div>
+      <div class="card" id="analysis-card">
+        <p id="analysis-text">Log at least 2 cycles to see analysis.</p>
+      </div>
+      <div class="card" id="fertile-card">
+        <div class="card-title">Fertile Window</div>
+        <div class="fertile-bar-wrap"><div class="fertile-bar"></div></div>
+        <p id="fertile-text">—</p>
+      </div>
+      <div class="card" id="ovulation-card">
+        <div class="card-title">Ovulation</div>
+        <div class="ovulation-dot-wrap"><div class="ovulation-dot"></div></div>
+        <p id="ovulation-text">—</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Future Predictions</div>
+        <div class="fertile-bar-wrap"><div class="fertile-bar"></div></div>
+        <div class="fertile-bar-wrap" style="margin-top:8px"><div class="predicted-bar"></div></div>
+        <p id="prediction-text">Log at least 2 cycles.</p>
+      </div>
+    </div>
+
+    <nav id="bottom-nav">
+      <button class="nav-btn active" data-view="calendar">
+        <span>📅</span><span>Calendar</span>
+      </button>
+      <button class="nav-btn" data-view="track">
+        <span>➕</span><span>Track</span>
+      </button>
+      <button class="nav-btn" data-view="analysis">
+        <span>📊</span><span>Analysis</span>
+      </button>
+    </nav>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
