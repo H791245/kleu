@@ -52,7 +52,7 @@ function buildDayMap() {
       }
       const ovDay = addDays(nextStart, -14);
       if (!map[ovDay]) map[ovDay] = { type: "ovulation" };
-      for (let f = -5; f <= 0; f++) {
+      for (let f = -5; f < 0; f++) {
         const fd = addDays(ovDay, f);
         if (!map[fd]) map[fd] = { type: "fertile" };
       }
@@ -171,10 +171,9 @@ function renderAnalysis() {
   const nextStart = addDays(lastStart, avg);
   const ovDay = addDays(nextStart, -14);
   const fertileStart = addDays(ovDay, -5);
-  const fertileEnd = ovDay;
 
   at.innerHTML = `Average cycle: <strong>${avg} days</strong><br/>Based on ${cycles.length} logged cycles.`;
-  ft.innerHTML = `<strong>${formatDate(fertileStart)} – ${formatDate(fertileEnd)}</strong>`;
+  ft.innerHTML = `<strong>${formatDate(fertileStart)} – ${formatDate(ovDay)}</strong>`;
   ot.innerHTML = `Around <strong>${formatDate(ovDay)}</strong>`;
   pt.innerHTML = `Next period around <strong>${formatDate(nextStart)}</strong> – <strong>${formatDate(addDays(nextStart, 4))}</strong>`;
 }
@@ -185,13 +184,15 @@ function renderAll() {
   renderAnalysis();
 }
 
+function switchView(viewName) {
+  document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+  document.querySelector(`[data-view="${viewName}"]`).classList.add("active");
+  document.getElementById(`view-${viewName}`).classList.add("active");
+}
+
 document.querySelectorAll(".nav-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
-    document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
-    btn.classList.add("active");
-    document.getElementById(`view-${btn.dataset.view}`).classList.add("active");
-  });
+  btn.addEventListener("click", () => switchView(btn.dataset.view));
 });
 
 let selectedFlow = "medium";
@@ -216,8 +217,14 @@ document.getElementById("save-btn").addEventListener("click", () => {
   document.getElementById("start-date").value = "";
   document.getElementById("end-date").value = "";
   renderAll();
+  switchView("calendar");
 });
 
-if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.getRegistrations().then(regs => {
+    regs.forEach(r => r.unregister());
+  });
+  navigator.serviceWorker.register("sw.js");
+}
 
 renderAll();
