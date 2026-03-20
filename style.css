@@ -1,0 +1,222 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f4f4f8;
+  color: #222;
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  position: relative;
+}
+
+#app {
+  padding-bottom: 80px;
+}
+
+.view { display: none; }
+.view.active { display: block; }
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px 10px;
+  background: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid #eee;
+}
+.top-title { font-size: 1.1rem; font-weight: 700; color: #222; }
+.drop-icon { font-size: 1.3rem; }
+
+#calendar-container {
+  padding: 0 8px;
+  background: white;
+}
+
+.month-block { margin-bottom: 0; }
+
+.month-header {
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #555;
+  padding: 14px 0 6px;
+  letter-spacing: 0.04em;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  padding: 0 4px 12px;
+}
+
+.cal-dow {
+  text-align: center;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #aaa;
+  padding: 4px 0;
+  letter-spacing: 0.05em;
+}
+
+.cal-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.15s;
+  color: #333;
+}
+
+.cal-day:active { opacity: 0.7; }
+.cal-day.empty { cursor: default; }
+.cal-day.today { font-weight: 700; color: #e05a7a; }
+
+.cal-day.period-light { background: #f9b4c4; color: #7a1030; border-radius: 50%; }
+.cal-day.period-medium { background: #f07090; color: white; border-radius: 50%; }
+.cal-day.period-heavy { background: #c0304a; color: white; border-radius: 50%; }
+.cal-day.period-super { background: #8b0020; color: white; border-radius: 50%; }
+.cal-day.period-predicted { background: #fde0e8; color: #c05070; border-radius: 50%; }
+.cal-day.fertile { background: #b2eaf0; color: #1a7080; border-radius: 50%; }
+.cal-day.ovulation { background: #5bc8d8; color: white; border-radius: 50%; }
+
+#legend {
+  background: white;
+  padding: 14px 16px 18px;
+  border-top: 1px solid #eee;
+}
+.legend-title { font-size: 0.8rem; font-weight: 700; color: #555; margin-bottom: 10px; }
+.legend-items { display: flex; flex-wrap: wrap; gap: 10px 16px; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: #666; }
+.dot { width: 14px; height: 14px; border-radius: 50%; display: inline-block; }
+.dot.light { background: #f9b4c4; }
+.dot.medium { background: #f07090; }
+.dot.heavy { background: #c0304a; }
+.dot.predicted { background: #fde0e8; border: 1px solid #f0a0b8; }
+.dot.fertile { background: #b2eaf0; }
+.dot.ovulation { background: #5bc8d8; }
+
+.card {
+  background: white;
+  border-radius: 18px;
+  padding: 18px;
+  margin: 14px 14px 0;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+}
+.card-title { font-size: 0.9rem; font-weight: 700; color: #333; margin-bottom: 10px; }
+
+label { display: block; font-size: 0.8rem; color: #888; margin: 10px 0 4px; }
+
+input[type="date"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid #eee;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  background: #fafafa;
+  color: #333;
+}
+
+.flow-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 4px;
+}
+
+.flow-btn {
+  flex: 1 1 40%;
+  padding: 9px;
+  border: 1.5px solid #eee;
+  border-radius: 12px;
+  background: white;
+  font-size: 0.8rem;
+  color: #666;
+  cursor: pointer;
+  width: auto;
+  margin: 0;
+}
+.flow-btn.selected { border-color: #e05a7a; background: #fde8ee; color: #e05a7a; font-weight: 600; }
+
+#save-btn {
+  margin-top: 14px;
+  width: 100%;
+  padding: 13px;
+  background: #e05a7a;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+#save-btn:active { background: #c04060; }
+
+#cycle-list { list-style: none; margin-top: 8px; }
+#cycle-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 0;
+  border-bottom: 1px solid #f5f5f5;
+  font-size: 0.85rem;
+  color: #555;
+}
+#cycle-list li:last-child { border-bottom: none; }
+.del-btn { background: none; border: none; color: #ddd; font-size: 1rem; cursor: pointer; width: auto; margin: 0; padding: 0; }
+.del-btn:active { color: #e05a7a; }
+
+#analysis-text, #fertile-text, #ovulation-text, #prediction-text {
+  font-size: 0.88rem;
+  color: #555;
+  line-height: 1.6;
+  margin-top: 8px;
+}
+
+.fertile-bar-wrap { background: #eef; border-radius: 20px; overflow: hidden; height: 12px; margin: 6px 0; }
+.fertile-bar { height: 100%; width: 60%; background: linear-gradient(90deg, #5bc8d8, #80dce8); border-radius: 20px; }
+.predicted-bar { height: 100%; width: 45%; background: linear-gradient(90deg, #f9b4c4, #fde0e8); border-radius: 20px; }
+
+.ovulation-dot-wrap { display: flex; justify-content: center; padding: 8px 0; }
+.ovulation-dot { width: 20px; height: 20px; background: #5bc8d8; border-radius: 50%; }
+
+#bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  background: white;
+  border-top: 1px solid #eee;
+  display: flex;
+  z-index: 100;
+}
+
+.nav-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 10px 0 14px;
+  background: none;
+  border: none;
+  font-size: 0.65rem;
+  color: #aaa;
+  cursor: pointer;
+  width: auto;
+  margin: 0;
+  border-radius: 0;
+}
+.nav-btn span:first-child { font-size: 1.3rem; }
+.nav-btn.active { color: #e05a7a; font-weight: 700; }
