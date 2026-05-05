@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#fdf6f0" />
   <title>Period Tracker</title>
-  //api.fontshare.com" />
-  //api.fontshare.com/v2/css?f[]=satoshi@400,500,700&f[]=zodiak@700&display=swap" />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&f[]=zodiak@700&display=swap" />
   <style>
     :root {
       --color-bg:#fdf6f0; --color-surface:#fff9f5; --color-surface-2:#fff3ec;
@@ -30,7 +30,7 @@
       --space-5:20px;--space-6:24px;--space-7:28px;--space-8:32px;
       --radius-sm:6px;--radius-md:12px;--radius-lg:20px;--radius-full:9999px;
       --shadow-sm:0 2px 12px rgba(0,0,0,0.06);
-      --header-h:56px;--nav-h:60px;--max-w:480px;
+      --header-h:56px;--nav-h:60px;--max-w:393px;
       --font-body:'Satoshi',system-ui,-apple-system,sans-serif;
       --font-display:'Zodiak',Georgia,serif;
       --text-xs:clamp(0.75rem,0.72rem + 0.12vw,0.78rem);
@@ -59,26 +59,26 @@
     }
     *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
     html,body{margin:0;padding:0;height:100%;background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);}
-    body{min-height:100vh;overflow:hidden;}
+    body{min-height:100dvh;overflow:hidden;}
     button,input,textarea,select{font:inherit;color:inherit;}
     button{border:none;background:none;cursor:pointer;min-height:44px;min-width:44px;}
     button:active,.chip:active,.select-pill:active,.nav-item:active,.day-cell:active,.icon-btn:active{transform:scale(0.97);}
     :focus-visible{outline:2px solid var(--color-primary);outline-offset:2px;}
-    .app{width:100%;max-width:var(--max-w);margin:0 auto;min-height:100vh;position:relative;background:var(--color-bg);}
+    .app{width:100%;max-width:var(--max-w);margin:0 auto;min-height:100dvh;position:relative;background:var(--color-bg);}
     .topbar{height:calc(var(--header-h) + env(safe-area-inset-top));padding:env(safe-area-inset-top) var(--space-4) 0;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20;background:rgba(253,246,240,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--color-border);}
     [data-theme="dark"] .topbar{background:rgba(26,16,16,0.92);}
     .brand{display:flex;align-items:center;gap:var(--space-3);}
     .brand-mark{width:34px;height:34px;border-radius:12px;background:linear-gradient(135deg,var(--color-primary),#f07b7b);display:grid;place-items:center;color:white;box-shadow:var(--shadow-sm);}
     .brand h1{margin:0;font-family:var(--font-display);font-size:var(--text-lg);line-height:1;}
     .icon-btn{display:inline-flex;align-items:center;justify-content:center;border-radius:var(--radius-full);background:var(--color-surface);border:1px solid var(--color-border);box-shadow:var(--shadow-sm);padding:0 10px;}
-    .main{height:calc(100vh - var(--header-h) - env(safe-area-inset-top) - var(--nav-h) - env(safe-area-inset-bottom));overflow-y:auto;padding:0;position:relative;}
+    .main{height:calc(100dvh - var(--header-h) - env(safe-area-inset-top) - var(--nav-h) - env(safe-area-inset-bottom));overflow-y:auto;padding:0;position:relative;}
     .view{position:absolute;top:0;left:0;right:0;opacity:0;visibility:hidden;pointer-events:none;transition:opacity 180ms ease;padding:var(--space-4);padding-bottom:var(--space-8);}
     .view.active{opacity:1;visibility:visible;pointer-events:auto;position:relative;}
     .view h1{margin:0 0 var(--space-2);font-family:var(--font-display);font-size:var(--text-2xl);line-height:1.1;}
     .subtle{color:var(--color-text-muted);font-size:var(--text-sm);}
     .stack{display:grid;gap:var(--space-4);}
     .card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:var(--space-4);}
-    .card h2{margin:0 0 var(--space-2);font-size:var(--text-base);}
+    p,h1,h2,h3,.subtle,.timeline-sub,.action-card p,.research-note,.timeline-title,.stat-value,.status-line{overflow-wrap:break-word;word-break:break-word;hyphens:auto;} .card h2{margin:0 0 var(--space-2);font-size:var(--text-base);}
     .hero-card{background:linear-gradient(180deg,var(--color-surface) 0%,var(--color-surface-2) 100%);}
     .partner-hero{background:linear-gradient(135deg,var(--tint-partner-bg),var(--color-surface-2));}
     .status-line{font-size:var(--text-xl);font-weight:700;line-height:1.15;margin:var(--space-2) 0 var(--space-3);}
